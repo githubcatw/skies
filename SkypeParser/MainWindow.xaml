@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkypeParser"
         mc:Ignorable="d"
-        Title="Skies - the simple Skype export viewer" Height="562.5" Width="947">
+        Title="Skies - the simple Skype export viewer" Height="562.5" Width="947"
+		Closing="Window_Closing">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="43*"/>

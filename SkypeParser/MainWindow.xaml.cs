@@ -226,5 +226,10 @@ namespace SkypeParser {
                 }
             }
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            // Delete the backup folder
+            Directory.Delete(bkpPath, true);
+        }
     }
 }
