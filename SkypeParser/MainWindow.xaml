@@ -1,0 +1,17 @@
+﻿<Window x:Class="SkypeParser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkypeParser"
+        mc:Ignorable="d"
+        Title="Skies - the simple Skype export viewer" Height="562.5" Width="947">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="43*"/>
+			<ColumnDefinition Width="89*"/>
+		</Grid.ColumnDefinitions>
+		<ListBox x:Name="chatlist" SelectionChanged="chatlist_SelectionChanged"/>
+		<ListBox x:Name="msglist" Grid.Column="1" MouseDoubleClick="msglist_MouseDoubleClick"/>
+	</Grid>
+</Window>
