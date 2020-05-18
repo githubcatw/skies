@@ -205,7 +205,25 @@ namespace SkypeParser {
                             // Update the name
                             name = init;
                             // Update the content
-                            content = "Set the topic to " + topic;
+                            content = "[Set the topic to " + topic + "]";
+                        }
+                        // If it's a group member addition:
+                        else if (content.ToString().Contains("<addmember>")) {
+                            // Load the content XML
+                            var doc = new XmlDocument();
+                            doc.LoadXml(content.ToString());
+                            // Get the addmember tag
+                            var member = doc.SelectSingleNode("addmember");
+                            // Get the new target and initiator values
+                            var target = member["target"].FirstChild.Value;
+                            var init = member["initiator"].FirstChild.Value;
+                            // Clean the initiator and target values
+                            init = init.Split(':')[1];
+                            target = target.Split(':')[1];
+                            // Update the name
+                            name = init;
+                            // Update the content
+                            content = "[Added " + target + "]";
                         }
                         // If we can load it as an XML:
                         else if (!string.IsNullOrEmpty(content.ToString()) && content.ToString().TrimStart().StartsWith("<")) {
