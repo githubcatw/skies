@@ -185,6 +185,16 @@ namespace SkypeParser {
                                 content = "[File]";
                             }
                         }
+                        // If it's a video:
+                        else if (content.StartsWith("<URIObject") && content.Contains("<Title>Video</Title>")) {
+                            // Show that it's a video
+                            content = "[Video]";
+                        }
+                        // If it's a moji:
+                        else if (content.StartsWith("<URIObject type=\"Video.1 / Flik.1\" ") && content.Contains("Moji")) {
+                            // Show that it's a moji
+                            content = "[Moji]";
+                        }
                         // If it's an emoji:
                         else if (content.ToString().Contains("ss")) {
                             // Set the content to the emoji's code
