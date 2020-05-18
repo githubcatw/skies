@@ -127,6 +127,8 @@ namespace SkypeParser {
                     foreach (var m in c.MessageList) {
                         // Get the content
                         string content = m.content.ToString();
+                        // Get the name
+                        string name = m.from.ToString().Split(':')[1];
                         // If it's a call:
                         if (content.Contains("partlist")) {
                             // Create an XML document
@@ -188,6 +190,23 @@ namespace SkypeParser {
                             // Set the content to the emoji's code
                             content = Regex.Replace(content, "<[^>]+>", string.Empty);
                         }
+                        // If it's a group topic update:
+                        else if (content.ToString().Contains("<topicupdate>")) {
+                            // Load the content XML
+                            var doc = new XmlDocument();
+                            doc.LoadXml(content.ToString());
+                            // Get the topicupdate tag
+                            var topicup = doc.SelectSingleNode("topicupdate");
+                            // Get the new topic and initiator values
+                            var topic = topicup["value"].FirstChild.Value;
+                            var init = topicup["initiator"].FirstChild.Value;
+                            // Clean the initiator value
+                            init = init.Split(':')[1];
+                            // Update the name
+                            name = init;
+                            // Update the content
+                            content = "Set the topic to " + topic;
+                        }
                         // If we can load it as an XML:
                         else if (!string.IsNullOrEmpty(content.ToString()) && content.ToString().TrimStart().StartsWith("<")) {
                             // Set the content to explanation text
@@ -198,7 +217,7 @@ namespace SkypeParser {
                                          .Replace("&lt;", "<")
                                          .Replace("&gt;", ">");
                         // Display the name and arrival time
-                        msglist.Items.Add(m.from.ToString().Split(':')[1] + ", " + m.originalarrivaltime);
+                        msglist.Items.Add(name + ", " + m.originalarrivaltime);
                         // Show the content
                         msglist.Items.Add(content);
                         // Add a blank space
