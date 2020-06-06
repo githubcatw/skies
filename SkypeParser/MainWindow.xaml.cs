@@ -116,6 +116,25 @@ namespace SkypeParser {
             }
         }
 
+        string GetLength(int length) {
+            // Turn it into minutes
+            int lengthMins = (int)Math.Round((double)(length / 60), 2);
+            // If the call is <60 seconds, return the seconds
+            if (length < 60) return length.ToString() + " second";
+            // Else:
+            else {
+                // If the length can be divided by 60, return the minutes
+                if (length % 60 == 0) return lengthMins.ToString() + " minute";
+                // Else:
+                else {
+                    // Calculate the remaining seconds
+                    int seconds = (lengthMins * 60) - length;
+                    // Return the minutes and seconds
+                    return $"{length} minute and {seconds} second call";
+                }
+            }
+        }
+
         private void chatlist_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             // For each conversation:
             foreach (var c in skypeJson.conversations) {
@@ -143,10 +162,8 @@ namespace SkypeParser {
                                 string lengthStr = xmlDoc["partlist"]["part"]["duration"].InnerText;
                                 // Round up the length
                                 int length = (int)Math.Round(float.Parse(lengthStr));
-                                // Turn it into minutes
-                                double lengthMins = Math.Round((double)(length / 60), 2);
                                 // Create a new content
-                                content = "[" + lengthMins.ToString() + " minute call]";
+                                content = $"[{GetLength(length)} call]";
                             }
                             // Else:
                             else {
