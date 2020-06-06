@@ -128,9 +128,11 @@ namespace SkypeParser {
                 // Else:
                 else {
                     // Calculate the remaining seconds
-                    int seconds = (lengthMins * 60) - length;
-                    // Return the minutes and seconds
-                    return $"{length} minute and {seconds} second call";
+                    int seconds = length - (lengthMins * 60);
+                    // If the result is <1, return only the minutes
+                    if (seconds < 1) return lengthMins.ToString() + " minute";
+                    // Else return the minutes and seconds
+                    return $"{length} minute and {seconds} second";
                 }
             }
         }
@@ -189,8 +191,7 @@ namespace SkypeParser {
                                 // Get the extension
                                 fileName += "." + doc.SelectSingleNode("URIObject/OriginalName").Attributes["v"].Value.Split('.')[1];
                                 // If the filename isn't ".1.png", set the content to explanation text
-                                if (fileName != ".1.png")
-                                content = "[File, double click to view]                   (" + fileName + ")";
+                                if (fileName != ".1.png") content = "[File, double click to view]                   (" + fileName + ")";
                                 // Else set the content to "File"
                                 content = "[File]";
                             }
