@@ -19,6 +19,7 @@ using SharpCompress.Common;
 using SharpCompress.Readers;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Windows.Interop;
 
 namespace SkypeParser {
     /// <summary>
@@ -266,6 +267,10 @@ namespace SkypeParser {
                         msglist.Items.Add(name + ", " + m.originalarrivaltime);
                         // Show the content
                         msglist.Items.Add(content);
+                        // Show the raw text if in debug mode
+#if DEBUG
+                        msglist.Items.Add(m.content.ToString());
+#endif
                         // Add a blank space
                         msglist.Items.Add("");
                     }
