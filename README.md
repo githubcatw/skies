@@ -1,6 +1,6 @@
 Skies is now archived. No new updates will be made.
 
-Warning: some of the libraries Skies was made with are on outdated versions with known vulnerabilities.
+Warning: the last version of Skies contains known security vulnerabilities. **Use Skies at your own risk!**
 
 ---
 
